@@ -4,16 +4,18 @@ from question import models
 from django.core.paginator import Paginator
 
 
+def paginate(objects_list, objects_per_page, num_of_page):
+    paginator = Paginator(objects_list, objects_per_page)
+    objects_page = paginator.get_page(num_of_page)
+    return objects_page, paginator
+
 # Create your views here.
 def list_of_question(request, page=1):
     users = models.Profile.objects.all()
     tags = models.Tag.objects.all()
     questions = models.Question.objects.all()
-
-    paginator = Paginator(questions, 2)
-    page_questions = paginator.get_page(page)
-
     top_tags = models.TopTag.objects.all()
+    page_questions, paginator = paginate(questions, 20, page)
 
     return render(request, "question/questions.html",
                   {"Tags": tags, "Questions": page_questions, "Users": users, "Paginator": paginator,
@@ -63,10 +65,9 @@ def tags_list(request, name='', page=1):
     tags = models.Tag.objects.all()
     questions = models.Question.objects.filter(tags__name=name)
 
-    paginator = Paginator(questions, 20)
-    page_questions = paginator.get_page(page)
-
     top_tags = models.TopTag.objects.all()
+
+    page_questions, paginator = paginate(questions, 20, page)
 
     return render(request, "question/question_by_tag.html",
                   {"Tags": tags, "Questions": page_questions, "Users": users, "Paginator": paginator,
