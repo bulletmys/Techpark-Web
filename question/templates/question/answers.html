@@ -1,0 +1,107 @@
+{% extends "question/base.html" %}
+
+{% load static %}
+
+<head>
+    <link rel="stylesheet" href="{% static 'css/my-styles.css' %}">
+    <title>Kek</title>
+</head>
+
+
+{% block questions %}
+    <div class="py-5 pr-0 pl-4">
+        <h3 class="card-title ml-5">{{ ID.title }}</h3>
+
+        <div class="row no-gutters p-2">
+            <div class="col-md-2 align-content-center">
+                <img src="{% static 'img/grishin.jpg.768x768_q95_box-712,0,2249,1537_crop_detail.jpg' %}"
+                     class="card-img pt-4" aligment="center" style="max-width: 120px;" alt="Avatar">
+                <div class="rating text-center mt-2">
+                    <button type="button" class="btn btn-light mb-1 grey" onclick="like_btn()">
+                        <i class="far fa-thumbs-up" id="like-btn"> </i>
+                        <span class="text-monospace grey">{{ ID.thumbs_up }}</span>
+                    </button>
+                    <button type="button" class="btn btn-light mb-1 grey" onclick="dislike_btn()">
+                        <i class="far fa-thumbs-down " id="dislike-btn"></i>
+                        <span class="text-monospace grey">{{ ID.thumbs_down }}</span>
+                    </button>
+
+
+                </div>
+            </div>
+            <div class="col-md-10">
+                <p class="card-text text-right m-0"><small
+                        class="text-muted">{{ ID.datetime_published }}</small></p>
+                <div class="card-body">
+                    <p class="card-text">{{ ID.text }}.</p>
+                    <div class="tags-in-question mb-2">
+                        {% for Tag in ID.tags.all %}
+                            <a href="{% url "questions_tag" Tag.name 1 %}" class="badge badge-light">{{ Tag.name }}</a>
+                        {% endfor %}
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <hr class="hr-dashed">
+        {#TODO Чекбоксы на правильный ответ#}
+        {% for answer in ID.answers.all %}
+
+
+            <div class="card m-auto mb-3" id='{{ answer.id }}' style="max-width: 1000px;">
+                <div class="row no-gutters p-2">
+                    <div class="col-md-1 align-content-center">
+                        <img src="{% static 'img/grishin.jpg.768x768_q95_box-712,0,2249,1537_crop_detail.jpg' %}"
+                             class="card-img pt-2" aligment="center" style="max-width: 60px;" alt="Avatar">
+                        <div class="rating text-center mt-2">
+                            <button type="button" class="btn btn-light mb-1 grey btn-sm" onclick="like_btn()">
+                                <i class="far fa-thumbs-up" id="like-btn"> </i>
+                                <span class="text-monospace grey">{{ answer.thumbs_up }}</span>
+                            </button>
+                            <button type="button" class="btn btn-light mb-1 grey btn-sm" onclick="dislike_btn()">
+                                <i class="far fa-thumbs-down " id="dislike-btn"></i>
+                                <span class="text-monospace grey">{{ answer.thumbs_down }}</span>
+                            </button>
+                            {% if answer.is_correct %}
+                                <script type="text/javascript">
+                                    correct_answer({{ answer.id }})
+                                </script>
+                                <span style="font-size: 40px; color: green">
+                                    <i class="fas fa-check-circle"></i>
+                                </span>
+                            {% endif %}
+
+
+                        </div>
+                    </div>
+                    <div class="col-md-11">
+                        <div class="card-body">
+                            <p class="card-text">{{ answer.text }}.</p>
+
+                            <p class="card-text text-right m-0"><small
+                                    class="text-muted">{{ answer.datetime_published }}</small></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div style="margin-bottom: 0.8rem"></div>
+
+
+        {% endfor %}
+        {% if  ID.answers.count == 0 %}
+            <h4 class="p-5 text-center">There is no answers yet.</h4>
+        {% endif %}
+        <hr class="m-5">
+
+
+        <form style="max-width: 1000px" class="m-auto">
+            <div class="input-group">
+            <textarea class="form-control" aria-label="With textarea" placeholder="Put your answer here"
+                      rows="5"></textarea>
+            </div>
+            <button type="submit" class="btn btn-secondary btn-lg btn-block mt-3">Answer</button>
+        </form>
+    </div>
+
+{% endblock %}

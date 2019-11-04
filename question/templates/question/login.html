@@ -1,0 +1,35 @@
+{% extends "question/base.html" %}
+
+{% load static %}
+
+<head>
+    <link rel="stylesheet" href="{% static 'css/my-styles.css' %}">
+    <title>Kek</title>
+</head>
+
+{% block questions %}
+    <div class="p-5">
+        <form class="needs-validation" novalidate>
+            <div class="form-group">
+                <div class="mb-3">
+                    <label for="validationCustom01">Login</label>
+                    <input type="text" class="form-control" id="validationCustom01" placeholder="First name"
+                           required>
+
+                </div>
+                <div class="mb-3">
+                    <label for="validationCustom02">Password</label>
+                    <input type="password" class="form-control" id="validationCustom02" placeholder="Last name"
+                           required>
+
+                </div>
+
+                <button class="btn btn-primary" type="submit">Submit</button>
+            </div>
+        </form>
+
+        <a class="my-3" href="{% url 'register' %}"><button type="button" class="btn btn-link pl-0">Create New Account</button></a>
+
+
+    </div>
+{% endblock %}

@@ -1,0 +1,52 @@
+{% extends "question/base.html" %}
+
+
+{% block questions %}
+    <div class="p-5">
+        <form class="needs-validation" novalidate>
+            <div class="form-row">
+                <div class="col-md-4 mb-3">
+                    <label for="validationCustom01">Login</label>
+                    <input type="text" class="form-control" id="validationCustom01" placeholder="Login"
+                           required>
+                    <div class="valid-feedback">
+                        Looks good!
+                    </div>
+                </div>
+                <div class="col-md-4 mb-3">
+                    <label for="validationCustom02">Email</label>
+                    <input type="email" class="form-control" id="validationCustom02" placeholder="bestuser@gmail.com"
+                           required>
+                    <div class="valid-feedback">
+                        Looks good!
+                    </div>
+                </div>
+                <div class="col-md-4 mb-3">
+                    <label for="validationCustomUsername">Username</label>
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id="inputGroupPrepend">@</span>
+                        </div>
+                        <input type="text" class="form-control" id="validationCustomUsername" placeholder="Username"
+                               aria-describedby="inputGroupPrepend" required>
+                        <div class="invalid-feedback">
+                            Please choose a username.
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="mb-2">Upload Avatar</div>
+            <div class="col-md-6 pl-0  ">
+                <input type="file" class="custom-file-input form-control pt-5" id="validationCustom05" placeholder="Zip"
+                       required>
+                <label class="custom-file-label" for="validationCustom05">Choose file</label>
+                <div class="invalid-feedback">
+
+                    Please provide a valid zip.
+                </div>
+            </div>
+            <button class="btn btn-primary" type="submit">Save</button>
+        </form>
+    </div>
+
+{% endblock %}

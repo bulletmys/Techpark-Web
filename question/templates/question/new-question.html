@@ -1,0 +1,52 @@
+{% extends "question/base.html" %}
+
+{% load static %}
+
+<head>
+    <link rel="stylesheet" href="{% static 'css/my-styles.css' %}">
+    <title>New Question</title>
+</head>
+
+
+{% block questions %}
+    <div class="p-5">
+        <h3 class="mb-5">New Question:</h3>
+        <form class="needs-validation" novalidate>
+            <div class="form-group row">
+                <label for="topic" class="col-sm-2 col-form-label">Title</label>
+                <div class="col-sm-10">
+                    <input class="form-control" id="topic" type="text" placeholder="The Best Title" required>
+                    <div class="valid-feedback">
+                        Looks good!
+                    </div>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="textArea" class="col-sm-2 col-form-label">Text</label>
+                <div class="col-sm-10">
+                <textarea class="form-control" id="textArea" rows="8" placeholder="Describe Your Question"
+                          required></textarea>
+                    <div class="valid-feedback">
+                        Looks good!
+                    </div>
+                </div>
+            </div>
+            <div class="form-group row mb-4">
+                <label for="tags" class="col-sm-2 col-form-label">Tags</label>
+                <div class="col-sm-10">
+                    <input class="form-control" type="text" id="tags" placeholder="c++, linux, bug">
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-sm-2"></div>
+                <div class="col-sm-10">
+                    <button type="submit" class="btn btn-primary">Ask!</button>
+                </div>
+            </div>
+        </form>
+    </div>
+
+{% endblock %}
+
+
+

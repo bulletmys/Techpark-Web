@@ -1,0 +1,90 @@
+{% extends "question/base.html" %}
+
+{% load static %}
+
+<head>
+    <link rel="stylesheet" href="{% static 'css/my-styles.css' %}">
+    <title>Kek</title>
+</head>
+
+
+{% block questions %}
+    <div class="p-5">
+        <a>
+            <h3 class="mb-3"> New Questions: </h3></a>
+        {% for i in Questions %}
+            <div class="card mb-3">
+                <div class="row no-gutters p-2">
+                    <div class="col-md-2 align-content-center">
+                        <img src="{% static 'img/grishin.jpg.768x768_q95_box-712,0,2249,1537_crop_detail.jpg' %}"
+                             class="card-img pt-4" aligment="center" style="max-width: 120px;" alt="Avatar">
+                        <div class="rating text-center mt-2">
+                            <button type="button" class="btn btn-light mb-1 grey" onclick="like_btn()">
+                                <i class="far fa-thumbs-up" id="like-btn"> </i>
+                                <span class="text-monospace grey">{{ i.thumbs_up }}</span>
+                            </button>
+                            <button type="button" class="btn btn-light mb-1 grey" onclick="dislike_btn()">
+                                <i class="far fa-thumbs-down " id="dislike-btn"></i>
+                                <span class="text-monospace grey">{{ i.thumbs_down }}</span>
+                            </button>
+
+
+                        </div>
+                    </div>
+                    <div class="col-md-10">
+                        <div class="card-body">
+                            <a class="custom-link" href="{% url 'answers' i.id %}">
+                                <h5 class="card-title">{{ i.title }}</h5>
+                            </a>
+                            <p class="card-text">{{ i.text }}.</p>
+                            <div class="tags-in-question mb-2">
+                                {% for Tag in i.tags.all %}
+                                    <a href="{% url "questions_tag" Tag.name Questions.number %}" class="badge badge-light">{{ Tag.name }}</a>
+                                {% endfor %}
+                            </div>
+                            <p class="card-text text-right m-0"><small
+                                    class="text-muted">{{ i.datetime_published }}</small></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+
+        <nav aria-label="Page navigation example">
+            <ul class="pagination justify-content-center">
+                {% if Questions.has_previous %}
+                    <li class="page-item">
+                        <a class="page-link" href="{% url 'page_num' Questions.previous_page_number %}" tabindex="-1"
+                           aria-disabled="false">Previous</a>
+                    </li>
+                    <li class="page-item"><a class="page-link"
+                                             href="{% url 'page_num' Questions.previous_page_number %}">{{ Questions.previous_page_number }}</a>
+                    </li>
+                {% else %}
+                    <li class="page-item disabled">
+                        <a class="page-link" href="" tabindex="-1"
+                           aria-disabled="true">Previous</a>
+                    </li>
+                {% endif %}
+
+                <li class="page-item active"><a class="page-link"
+                                                href="{% url 'page_num' Questions.number %}">{{ Questions.number }}</a>
+
+                    {% if Questions.has_next %}
+                        <li class="page-item"><a class="page-link"
+                                                 href="{% url 'page_num' Questions.next_page_number %}">{{ Questions.next_page_number }}</a>
+                        </li>
+                        <li class="page-item">
+                            <a class="page-link" href="{% url 'page_num' Questions.next_page_number %}">Next</a>
+                        </li>
+                    {% else %}
+                        <li class="page-item disabled">
+                            <a class="page-link" href="" aria-disabled="true">Next</a>
+                        </li>
+                    {% endif %}
+
+            </ul>
+        </nav>
+    </div>
+{% endblock %}
+
