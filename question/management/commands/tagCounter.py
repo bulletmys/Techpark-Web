@@ -16,5 +16,4 @@ class Command(BaseCommand):
             t = TopTag(name=tag.name, amount=tag.amount)
             t.save()
 
-        # self.stdout.write(self.style.SUCCESS('Successfully added top 20 tags "%s"' % tags))
-        self.stdout.write(self.style.SUCCESS('Successfully added top 20 tags "%s"' % Question.objects.filter(tags__id=1)))
+        self.stdout.write(self.style.SUCCESS('Successfully added top 20 tags "%s"' % tags))
